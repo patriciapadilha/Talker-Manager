@@ -20,9 +20,15 @@ app.get('/', (_request, response) => {
 });
 
 app.post('/login',
-  middlewares.emailValidade,
-  middlewares.passwordValidade,  
+  middlewares.emailValidate,
+  middlewares.passwordValidate,  
   services.getToken);
+
+app.post('/talker',
+  middlewares.tokenValidate,
+  middlewares.nameValidate,
+  middlewares.ageValidate,
+  services.newTalker); 
 
 app.listen(PORT, () => {
   console.log('Online');

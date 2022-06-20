@@ -23,7 +23,16 @@ const getTalkerById = async (req, res) => {
 
 const getToken = (req, res) => {
   const userToken = crypto.randomBytes(8).toString('hex');
-  res.status(200).json({ token: userToken })
+  res.status(200).json({ token: userToken });
 };
 
-module.exports = { getTalkers, getTalkerById, getToken };
+const newTalker = async (req, res) => {
+  const { name, age, talk } = req.body;
+  const content = await fs.readFile(file, 'utf8');
+  const talkersfile = JSON.parse(content);
+  const newContent = { id: talkersfile.length + 1, name, age, talk };
+  await fs.writeFile(file, JSON.stringify(talkersfile.push(newContent)));
+  res.status(201).json(newContent);
+}
+
+module.exports = { getTalkers, getTalkerById, getToken, newTalker };
