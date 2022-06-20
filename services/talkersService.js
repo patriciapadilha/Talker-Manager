@@ -1,5 +1,7 @@
 const fs = require('fs').promises;
 
+const crypto = require('crypto');
+
 const file = 'talker.json';
 
 const getTalkers = async (req, res) => {
@@ -19,4 +21,9 @@ const getTalkerById = async (req, res) => {
   res.status(200).json(result);
 };
 
-module.exports = { getTalkers, getTalkerById };
+const getToken = (req, res) => {
+  const userToken = crypto.randomBytes(8).toString('hex');
+  res.status(200).json({ token: userToken })
+};
+
+module.exports = { getTalkers, getTalkerById, getToken };
