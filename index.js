@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const services = require('./services/talkersService');
+const middlewares = require('./middlewares/talkersMiddlewares');
 // const routes = require('./routes/index');
 
 const app = express();
@@ -18,7 +19,10 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
-app.post('/login', services.getToken)
+app.post('/login',
+  middlewares.emailValidade,
+  middlewares.passwordValidade,  
+  services.getToken);
 
 app.listen(PORT, () => {
   console.log('Online');
