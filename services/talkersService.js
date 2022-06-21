@@ -31,7 +31,8 @@ const newTalker = async (req, res) => {
   const content = await fs.readFile(file, 'utf8');
   const talkersfile = JSON.parse(content);
   const newContent = { id: talkersfile.length + 1, name, age, talk };
-  await fs.writeFile(file, JSON.stringify(talkersfile.push(newContent)));
+  talkersfile.push(newContent);
+  await fs.writeFile(file, JSON.stringify(talkersfile));
   res.status(201).json(newContent);
 };
 

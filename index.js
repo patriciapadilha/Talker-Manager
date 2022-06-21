@@ -28,6 +28,9 @@ app.post('/talker',
   middlewares.tokenValidate,
   middlewares.nameValidate,
   middlewares.ageValidate,
+  middlewares.talkValidate,
+  middlewares.watchedAtValidate,
+  middlewares.rateValidate,
   services.newTalker); 
 
 app.listen(PORT, () => {
