@@ -33,6 +33,6 @@ const newTalker = async (req, res) => {
   const newContent = { id: talkersfile.length + 1, name, age, talk };
   await fs.writeFile(file, JSON.stringify(talkersfile.push(newContent)));
   res.status(201).json(newContent);
-}
+};
 
 module.exports = { getTalkers, getTalkerById, getToken, newTalker };

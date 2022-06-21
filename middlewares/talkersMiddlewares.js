@@ -31,12 +31,12 @@ const tokenValidate = (req, res, next) => {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
 
-  if (authorization.length < 16 || authorization.length > 16 ) {
+  if (authorization.length < 16 || authorization.length > 16) {
     return res.status(401).json({ message: 'Token inválido' });
   }
 
   next();
-}
+};
 
 const nameValidate = (req, res, next) => {
   const { name } = req.body;
@@ -49,7 +49,7 @@ const nameValidate = (req, res, next) => {
   } 
 
   next();
-}
+};
 
 const ageValidate = (req, res, next) => {
   const { age } = req.body;
@@ -62,7 +62,6 @@ const ageValidate = (req, res, next) => {
   } 
 
   next();
-}
-
+};
 
 module.exports = { emailValidate, passwordValidate, tokenValidate, nameValidate, ageValidate };
