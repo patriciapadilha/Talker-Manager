@@ -14,11 +14,6 @@ app.get('/talker', services.getTalkers);
 
 app.get('/talker/:id', services.getTalkerById);
 
-// não remova esse endpoint, para o avaliador funcionar
-app.get('/', (_request, response) => {
-  response.status(HTTP_OK_STATUS).send();
-});
-
 app.post('/login',
   middlewares.emailValidate,
   middlewares.passwordValidate,  
@@ -32,6 +27,20 @@ app.post('/talker',
   middlewares.watchedAtValidate,
   middlewares.rateValidate,
   services.newTalker); 
+
+app.put('/talker/:id',
+  middlewares.tokenValidate,
+  middlewares.nameValidate,
+  middlewares.ageValidate,
+  middlewares.talkValidate,
+  middlewares.watchedAtValidate,
+  middlewares.rateValidate,
+  services.editTalkerById);
+
+// não remova esse endpoint, para o avaliador funcionar
+app.get('/', (_request, response) => {
+  response.status(HTTP_OK_STATUS).send();
+});
 
 app.listen(PORT, () => {
   console.log('Online');

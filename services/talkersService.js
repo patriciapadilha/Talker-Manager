@@ -36,4 +36,21 @@ const newTalker = async (req, res) => {
   res.status(201).json(newContent);
 };
 
-module.exports = { getTalkers, getTalkerById, getToken, newTalker };
+const editTalkerById = async (req, res) => {
+  const { id } = req.params;
+  const { name, age, talk } = req.body;
+
+  const content = await fs.readFile(file, 'utf8');
+  const talkersfile = JSON.parse(content);
+  
+  const result = talkersfile.filter((talker) => talker.id !== Number(id));
+
+  const newContent = { id: Number(id), name, age, talk };
+
+  const replace = [...result, newContent];
+
+  await fs.writeFile(file, JSON.stringify(replace));
+  res.status(200).json(newContent);
+};
+
+module.exports = { getTalkers, getTalkerById, getToken, newTalker, editTalkerById };
