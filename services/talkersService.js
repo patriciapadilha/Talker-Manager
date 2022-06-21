@@ -64,10 +64,21 @@ const deleteTalkerById = async (req, res) => {
   res.status(204).json(result);
 };
 
+const searchTalker = async (req, res) => {
+  const { q } = req.query;
+  const content = await fs.readFile(file, 'utf8');
+  const talkersfile = JSON.parse(content);
+
+  const filteredFile = talkersfile.filter((talker) => talker.name.includes(q));
+
+  res.status(200).json(filteredFile);
+};
+
 module.exports = {
   getTalkers,
   getTalkerById,
   getToken,
   newTalker,
   editTalkerById,
-  deleteTalkerById };
+  deleteTalkerById,
+  searchTalker };

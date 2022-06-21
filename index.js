@@ -10,34 +10,36 @@ app.use(bodyParser.json());
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
 
-app.get('/talker', services.getTalkers);
-
-app.get('/talker/:id', services.getTalkerById);
-
 app.post('/login',
   middlewares.emailValidate,
   middlewares.passwordValidate,  
   services.getToken);
 
+app.get('/talker', services.getTalkers);
+
+app.get('/talker/search', middlewares.tokenValidate, services.searchTalker);
+
 app.post('/talker',
-  middlewares.tokenValidate,
-  middlewares.nameValidate,
-  middlewares.ageValidate,
-  middlewares.talkValidate,
-  middlewares.watchedAtValidate,
-  middlewares.rateValidate,
-  services.newTalker); 
+middlewares.tokenValidate,
+middlewares.nameValidate,
+middlewares.ageValidate,
+middlewares.talkValidate,
+middlewares.watchedAtValidate,
+middlewares.rateValidate,
+services.newTalker); 
 
 app.put('/talker/:id',
-  middlewares.tokenValidate,
-  middlewares.nameValidate,
-  middlewares.ageValidate,
-  middlewares.talkValidate,
-  middlewares.watchedAtValidate,
-  middlewares.rateValidate,
-  services.editTalkerById);
+middlewares.tokenValidate,
+middlewares.nameValidate,
+middlewares.ageValidate,
+middlewares.talkValidate,
+middlewares.watchedAtValidate,
+middlewares.rateValidate,
+services.editTalkerById);
 
-app.delete('/talker/:id', middlewares.tokenValidate, services.deleteTalkerById);  
+app.get('/talker/:id', services.getTalkerById);
+
+app.delete('/talker/:id', middlewares.tokenValidate, services.deleteTalkerById);
 
 // não remova esse endpoint, para o avaliador funcionar
 app.get('/', (_request, response) => {
