@@ -53,4 +53,21 @@ const editTalkerById = async (req, res) => {
   res.status(200).json(newContent);
 };
 
-module.exports = { getTalkers, getTalkerById, getToken, newTalker, editTalkerById };
+const deleteTalkerById = async (req, res) => {
+  const { id } = req.params;
+
+  const content = await fs.readFile(file, 'utf8');
+  const talkersfile = JSON.parse(content);
+  
+  const result = talkersfile.filter((talker) => talker.id !== Number(id));
+  await fs.writeFile(file, JSON.stringify(result));
+  res.status(204).json(result);
+};
+
+module.exports = {
+  getTalkers,
+  getTalkerById,
+  getToken,
+  newTalker,
+  editTalkerById,
+  deleteTalkerById };

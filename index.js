@@ -37,6 +37,8 @@ app.put('/talker/:id',
   middlewares.rateValidate,
   services.editTalkerById);
 
+app.delete('/talker/:id', middlewares.tokenValidate, services.deleteTalkerById);  
+
 // não remova esse endpoint, para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
